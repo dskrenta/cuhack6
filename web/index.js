@@ -19,18 +19,28 @@
 
       for (let result of results) {
         if (result.type === 'text') {
-          htmlStr += `<p>${result.text}</p>`;
+          htmlStr += `
+            <div class="result">
+              <p class="text">${result.text}</p>
+            </div>
+          `;
         }
         else if (result.type === 'rosetta-code') {
           htmlStr += `
-            <p>${result.title} - ${result.url}</p>
-            <iframe src=${result.url} width="500" height="300"></iframe>
+            <div class="result">
+              <h4 class="title">${result.title}</h4>
+              <p class="url">${result.url}</p>
+              <iframe src=${result.url} width="100%" height="300"></iframe>
+            </div>
           `;
         }
         else if (result.type === 'cheat-sheet') {
           htmlStr += `
-            <p>${result.url}</p>
-            <iframe src=${result.url} width="500" height="300"></iframe>
+            <div class="result">
+              <h4 class="title">Cheat Sheet for: ${query}</h4>
+              <p class="url">${result.url}</p>
+              <iframe src=${result.url} width="100%" height="300"></iframe>
+            </div>
           `;
         }
       }
