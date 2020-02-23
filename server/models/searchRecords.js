@@ -11,7 +11,9 @@ async function searchRecords({
   esClient,
   query,
   offset,
-  limit
+  limit,
+  sort = 'desc',
+  tags = []
 }) {
   try {
     const searchRes = await esClient.search({
@@ -20,13 +22,23 @@ async function searchRecords({
       size: limit,
       body: {
         query: {
-          multi_match: {
-            query,
-            fields: [
-              'text'
+          bool: {
+            must: [
+              ...tags.map(tag => ({ term: { 'tags': tag }})),
+              {
+                multi_match: {
+                  query,
+                  fields: [
+                    'text'
+                  ]
+                }
+              }
             ]
           }
-        }
+        },
+        sort: [
+          { createdAt: { order: sort } }
+        ]
       }
     });
 

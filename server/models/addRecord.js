@@ -5,6 +5,7 @@ const {
     recordsIndex
   }
 } = require('../utils/constants');
+const getTimestamp = require('../utils/getTimestamp');
 
 async function addRecord({ esClient, userId, text, tags, urls = [] }) {
   try {
@@ -12,7 +13,8 @@ async function addRecord({ esClient, userId, text, tags, urls = [] }) {
       userId,
       text,
       tags,
-      urls
+      urls,
+      createdAt: getTimestamp()
     };
 
     const res = await esClient.index({

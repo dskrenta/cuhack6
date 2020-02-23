@@ -3,7 +3,7 @@
 function queryParser(query) {
   let type = 'search';
   let tags = [];
-  let sort = null;
+  let sort = 'desc';
   let addContent = null;
   const tagsMatch = query.match(/tags:(\w+)/);
   const sortMatch = query.match(/sort:(\w+)/);

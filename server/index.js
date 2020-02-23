@@ -65,7 +65,9 @@ app.get('/api', async (req, res) => {
         esClient,
         query,
         offset: 0,
-        limit: 10
+        limit: 10,
+        sort: parsedQuery.sort,
+        tags: parsedQuery.tags
       });
       if (records) {
         results = [...records, ...results];

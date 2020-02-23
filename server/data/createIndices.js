@@ -18,6 +18,7 @@ async function createIndicies() {
               userId: {type: 'keyword'},
               text: {type: 'text'},
               tags: {type: 'keyword'},
+              createdAt: {type: 'date'},
               urls: {
                 type: 'nested',
                 properties: {
