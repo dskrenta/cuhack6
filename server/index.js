@@ -11,6 +11,8 @@ app.use(cors());
 
 app.get('/api', async (req, res) => {
   try {
+    const query = req.query.q;
+
     const sampleData = [
       {
         type: 'text',
@@ -36,6 +38,9 @@ app.get('/api', async (req, res) => {
 
 app.post('/auth', async (req, res) => {
   try {
+    const username = req.body.username;
+    const password = req.body.password;
+
     res.send('foo');
   }
   catch (error) {
