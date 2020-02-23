@@ -12,6 +12,7 @@ const queryParser = require('./utils/queryParser');
 const modules = require('./modules');
 const searchRecords = require('./models/searchRecords');
 const addRecord = require('./models/addRecord');
+const urlPreview = require('./utils/urlPreview');
 
 const PORT = process.env.PORT || 3000;
 
@@ -27,9 +28,27 @@ app.get('/api', async (req, res) => {
 
     let results = [];
 
+    // Add record to index
     if (parsedQuery.type === 'add') {
-      console.log('add command', parsedQuery);
+      const record = {
+        userId: '123',
+        text: parsedQuery.addContent,
+        tags: parsedQuery.tags,
+        urls: []
+      };
+
+      const urls = parsedQuery.addContent.match(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g);
+      if (urls) {
+        const urlsWithHttp = urls.map(url => `http://${url}`);
+        const urlPreviewsPromises = urlsWithHttp.map(url => urlPreview(url));
+        const urlPreviews = await Promise.all(urlPreviewsPromises);
+        record.urls = urlPreviews;
+      }
+
+      await addRecord({ esClient, ...record });
     }
+
+    // Search
     else {
       console.log('search', parsedQuery);
 
