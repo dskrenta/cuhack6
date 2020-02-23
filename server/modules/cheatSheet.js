@@ -98,7 +98,7 @@ async function cheatSheet(query) {
 async function trigger(query) {
   try {
     for (const key in sheets) {
-      if (query === key || query === `${key} cheat sheet`) {
+      if (query === key) {
         return true;
       }
     }
