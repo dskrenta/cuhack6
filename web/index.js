@@ -43,11 +43,29 @@
             </div>
           `;
         }
+        /*
+        "urls": [
+              {
+                "title": "Wall Street Journal reporters protest ‘sick man’ headline in Wall Street Journal - The Washington PostsearchmenumenuWashington Post LogoprofileprofileWashington Post LogocloseEmailBioFollowhomeshareShare on FacebookEmail this linkShare on TwitterShare on PinterestShare on LinkedIncomment",
+                "image": "https://www.washingtonpost.com/resizer/HgqYZHYlnU_CnHoKaNA7Gm48tPQ=/1440x0/smart/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/EKPG7WSVY4I6VMIZJ6VLVRTHJ4.jpg",
+                "icon": "/pf/resources/images/favicon.ico?d=200",
+                "snippet": "The headline has angered the Chinese government, which expelled three journalists from the newspaper over it.",
+                "url": "http://www.washingtonpost.com/lifestyle/media/wall-street-journal-reporters-protest-sick-man-headline-in-wall-street-journal/2020/02/22/2435ab86-55ab-11ea-929a-64efa7482a77_story.html",
+                "crawledAt": "2020-02-23T07:45:02.959Z"
+              }
+            ],
+        */
         else if (result.type === 'record') {
           htmlStr += `
             <div class="result">
               <p>${result.text}</p>
               <small>${result.createdAt}</small>
+              ${result.urls.map(url => `
+                ${url.title ? `<p>${url.title}</p>`: ''}
+                ${url.image ? `<img src=${url.image} width="100" height="100" />`: ''}
+                ${url.snippet ? `<p>${url.snippet}</p>`: ''}
+                ${url.url ? `<p>${url.url}</p>` : ''}
+              `).join()}
             </div>
           `;
         }
