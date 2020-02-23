@@ -4,7 +4,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: #1c1c1c;
   color: white;
-  --red: #d56;
+  --red: #c34;
+  --red: #f00;
   --blue: #08f;
   --green: #0a4;
   --white1: #def;
@@ -13,7 +14,6 @@ body {
 }
 .logo {
   text-align: center;
-  color: var(--white3);
   margin: 24px 12px 36px;
   font-size: 48px;
 }
@@ -48,7 +48,7 @@ body {
   cursor: pointer;
   color: #333;
   background: var(--red);
-  color: var(--white1);
+  color: white;
   outline: none;
   border: none;
   font-size: 28px;
@@ -60,10 +60,12 @@ body {
 #results {
   width: 95%;
   max-width: 660px;
-  margin: 24px auto;
+  margin: 0 auto;
+  padding: 24px 18px;
+  box-sizing: border-box;
 }
 .result {
-  padding: 6px 18px 18px;
+  padding: 6px 0 18px;
   box-sizing: border-box;
   width: 100%;
   margin: 0 0 12px;
@@ -93,4 +95,13 @@ body {
   box-sizing: border-box;
   border: 1px solid #444;
   margin: 0 -18px 6px;
+}
+li {
+  margin-bottom: 4px;
+}
+code {
+  background: #444;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
 }

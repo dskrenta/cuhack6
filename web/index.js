@@ -58,21 +58,21 @@
         else if (result.type === 'record') {
           htmlStr += `
             <div class="result">
-              <p>${result.text}</p>
-              <small>${result.createdAt}</small>
+              <p class="text">${result.text}</p>
+              <small class="time">${result.createdAt}</small>
               ${result.urls.map(url => `
-                ${url.title ? `<p>${url.title}</p>`: ''}
-                ${url.image ? `<img src=${url.image} width="100" height="100" />`: ''}
-                ${url.snippet ? `<p>${url.snippet}</p>`: ''}
-                ${url.url ? `<p>${url.url}</p>` : ''}
-              `).join()}
+                ${url.image ? `<br/><br/><img src=${url.image} width="100" height="100" />`: ''}
+                ${url.title ? `<p class="title">${url.title}</p>`: ''}
+                ${url.snippet ? `<p class="snippet">${url.snippet}</p>`: ''}
+                ${url.url ? `<p class="url">${url.url}</p>` : ''}
+              `).join('\n')}
             </div>
           `;
         }
         else if (result.type === 'message') {
           htmlStr += `
             <div class="result">
-              <h4>${result.text}</h4>
+              <h4 class="message">${result.text}</h4>
             </div>
           `;
         }
