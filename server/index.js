@@ -10,6 +10,8 @@ const cors = require('cors');
 const esClient = require('./utils/elasticsearchClient');
 const queryParser = require('./utils/queryParser');
 const modules = require('./modules');
+const searchRecords = require('./models/searchRecords');
+const addRecord = require('./models/addRecord');
 
 const PORT = process.env.PORT || 3000;
 
@@ -31,6 +33,7 @@ app.get('/api', async (req, res) => {
     else {
       console.log('search', parsedQuery);
 
+      // Check package triggers and execute packages
       for (const mod of modules) {
         if (mod.mod.trigger(query)) {
           const modResult = await mod.mod[mod.key](query);
@@ -38,8 +41,16 @@ app.get('/api', async (req, res) => {
         }
       }
 
-      // check triggers for modules
-      // perform es search
+      // Search records
+      const records = await searchRecords({
+        esClient,
+        query,
+        offset: 0,
+        limit: 10
+      });
+      if (records) {
+        results = [...records, ...results];
+      }
     }
 
     console.log(results);
