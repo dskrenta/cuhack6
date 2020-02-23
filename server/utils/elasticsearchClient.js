@@ -14,7 +14,7 @@ const esClient = elasticsearch.create({
   host: ES_ENDPOINT,
   log: process.env.NODE_ENV !== 'production' ? 'trace' : undefined,
   region: ES_REGION,
-  credentials: new AWS.Credentials(process.env.appearixElasticsearchAccessKeyId, process.env.appearixElasticsearchSecretAccessKey)
+  credentials: new AWS.Credentials(process.env.elasticsearchAccessKeyId, process.env.elasticsearchSecretAccessKey)
 });
 
 module.exports = esClient;
