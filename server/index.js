@@ -1,8 +1,15 @@
 'use strict';
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({path: `${__dirname}/../.env`});
+}
+
 const express = require('express');
 const cors = require('cors');
+const AWS = require('aws-sdk');
+const elasticsearch = require('aws-elasticsearch-client');
 
+const { ES_ENDPOINT, ES_REGION } = require('./utils/constants');
 const queryParser = require('./utils/queryParser');
 const modules = require('./modules');
 
@@ -12,6 +19,14 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.static(`${__dirname}/../web`));
 app.use(cors());
+
+// Elasticsearch configuration
+const esClient = elasticsearch.create({
+  host: ES_ENDPOINT,
+  log: process.env.NODE_ENV !== 'production' ? 'trace' : undefined,
+  region: ES_REGION,
+  credentials: new AWS.Credentials(process.env.elasticsearchAccessKeyId, process.env.elasticsearchSecretAccessKey)
+});
 
 app.get('/api', async (req, res) => {
   try {
