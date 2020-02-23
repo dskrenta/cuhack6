@@ -1,12 +1,17 @@
 'use strict';
 
 const mathjs = require('mathjs');
+const isObject = require('../utils/isObject');
 
 const dp = {};
 
 async function math(query) {
   try {
-    const data = dp[query] || mathjs.evaluate(query);
+    let data = dp[query] || mathjs.evaluate(query);
+
+    if (isObject(data)) {
+      data = data.value;
+    }
 
     return {
       type: 'text',

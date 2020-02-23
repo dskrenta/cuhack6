@@ -43,6 +43,14 @@
             </div>
           `;
         }
+        else if (result.type === 'record') {
+          htmlStr += `
+            <div class="result">
+              <p>${result.text}</p>
+              <small>${result.createdAt}</small>
+            </div>
+          `;
+        }
       }
 
       resultsContainer.innerHTML = htmlStr;

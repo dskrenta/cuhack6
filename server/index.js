@@ -70,7 +70,7 @@ app.get('/api', async (req, res) => {
         tags: parsedQuery.tags
       });
       if (records) {
-        results = [...records, ...results];
+        results = [...results, ...records.map(record => ({type: 'record', ...record}))];
       }
     }
 
@@ -83,7 +83,7 @@ app.get('/api', async (req, res) => {
       },
       {
         type: 'cheat-sheet',
-        url: 'https://cheatography.com/davechild/cheat-sheets/regular-expressions/pdf/'
+        url: 'https://cheatography.com//davechild/cheat-sheets/regular-expressions/pdf/'
       },
       {
         type: 'rosetta-code',
@@ -92,7 +92,7 @@ app.get('/api', async (req, res) => {
       }
     ]
 
-    res.json(sampleData);
+    res.json(results);
   }
   catch (error) {
     console.error('/api error', error);
