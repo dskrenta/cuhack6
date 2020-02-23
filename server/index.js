@@ -1,10 +1,18 @@
 'use strict';
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({path: `${__dirname}/../.env`});
+}
+
 const express = require('express');
 const cors = require('cors');
 
+const esClient = require('./utils/elasticsearchClient');
 const queryParser = require('./utils/queryParser');
 const modules = require('./modules');
+const searchRecords = require('./models/searchRecords');
+const addRecord = require('./models/addRecord');
+const urlPreview = require('./utils/urlPreview');
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,12 +28,31 @@ app.get('/api', async (req, res) => {
 
     let results = [];
 
+    // Add record to index
     if (parsedQuery.type === 'add') {
-      console.log('add command', parsedQuery);
+      const record = {
+        userId: '123',
+        text: parsedQuery.addContent,
+        tags: parsedQuery.tags,
+        urls: []
+      };
+
+      const urls = parsedQuery.addContent.match(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g);
+      if (urls) {
+        const urlsWithHttp = urls.map(url => `http://${url}`);
+        const urlPreviewsPromises = urlsWithHttp.map(url => urlPreview(url));
+        const urlPreviews = await Promise.all(urlPreviewsPromises);
+        record.urls = urlPreviews;
+      }
+
+      await addRecord({ esClient, ...record });
     }
+
+    // Search
     else {
       console.log('search', parsedQuery);
 
+      // Check package triggers and execute packages
       for (const mod of modules) {
         if (mod.mod.trigger(query)) {
           const modResult = await mod.mod[mod.key](query);
@@ -33,8 +60,18 @@ app.get('/api', async (req, res) => {
         }
       }
 
-      // check triggers for modules
-      // perform es search
+      // Search records
+      const records = await searchRecords({
+        esClient,
+        query,
+        offset: 0,
+        limit: 10,
+        sort: parsedQuery.sort,
+        tags: parsedQuery.tags
+      });
+      if (records) {
+        results = [...records, ...results];
+      }
     }
 
     console.log(results);

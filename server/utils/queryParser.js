@@ -3,26 +3,26 @@
 function queryParser(query) {
   let type = 'search';
   let tags = [];
-  let sort = null;
+  let sort = 'desc';
   let addContent = null;
-  const tagsRegex = query.match(/tags:(.*)\s/);
-  const sortRegex = query.match(/sort:(\w+)/);
-  const addRegex = query.match(/^add \"(.*?)\"/);
+  const tagsMatch = query.match(/tags:(\w+)/);
+  const sortMatch = query.match(/sort:(\w+)/);
+  const addMatch = query.match(/^add \"(.*?)\"/);
 
-  if (tagsRegex) {
-    tags = tagsRegex[1].split(',').map(str => str.trim());
+  if (tagsMatch) {
+    tags = tagsMatch[1].split(',').map(str => str.trim());
   }
 
-  if (sortRegex) {
-    sort = sortRegex[1];
+  if (sortMatch) {
+    sort = sortMatch[1];
   }
 
-  if (addRegex) {
+  if (addMatch) {
     type = 'add';
-    addContent = addRegex[1];
+    addContent = addMatch[1];
   }
 
-  return { query, type, tags, sort, addContent };
+  return { query, type, tags, sort, addContent, parsedQuery: query.replace(/tags:\w+/, '').replace(/sort:\w+/, '').trim() };
 }
 
 module.exports = queryParser;
