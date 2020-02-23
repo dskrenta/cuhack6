@@ -99,6 +99,10 @@ app.get('/api', async (req, res) => {
       }
     ]
 
+    if (results.length === 0) {
+      results.push({ type: 'message', text: 'No results' });
+    }
+
     res.json(results);
   }
   catch (error) {
