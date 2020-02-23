@@ -25,6 +25,8 @@ async function searchRecords({
           bool: {
             must: [
               ...tags.map(tag => ({ term: { 'tags': tag }})),
+            ],
+            should: [
               {
                 multi_match: {
                   query,
