@@ -4,11 +4,21 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: #1c1c1c;
   color: white;
+  --red: #d56;
+  --blue: #08f;
+  --green: #0a4;
+  --white1: #def;
+  --white2: #cde;
+  --white3: #bcd;
 }
 .logo {
   text-align: center;
-  color: #08f;
+  color: var(--white3);
   margin: 24px 12px 36px;
+  font-size: 48px;
+}
+.logo > span {
+  color: var(--red);
 }
 #search-form {
   margin: 0 auto;
@@ -29,7 +39,7 @@ body {
   border: none;
   outline: none;
   background: #333;
-  color: white;
+  color: var(--white1);
   font-size: 16px;
 }
 .submit {
@@ -37,8 +47,8 @@ body {
   height: 45px;
   cursor: pointer;
   color: #333;
-  background: #08f;
-  color: white;
+  background: var(--red);
+  color: var(--white1);
   outline: none;
   border: none;
   font-size: 28px;
@@ -65,11 +75,11 @@ body {
 .title {
   margin: 12px 0 6px;
   font-weight: normal;
-  color: #eee;
+  color: var(--white1);
   font-size: 18px;
 }
 .url {
-  color: #0a0;
+  color: var(--green);
   margin: 4px 0 18px;
   font-size: 14px;
 }
@@ -78,9 +88,9 @@ body {
   font-size: 18px;
 }
 .result > iframe {
-  width: 100%;
+  width: calc(100% + 36px);
   height: 300px;
   box-sizing: border-box;
   border: 1px solid #444;
-  margin-bottom: 6px;
+  margin: 0 -18px 6px;
 }
