@@ -1,3 +1,3 @@
-# js-web-project
+# CUHACK6
 
-Template for js web projects
+CUHACK6

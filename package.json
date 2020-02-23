@@ -1,0 +1,27 @@
+{
+  "name": "cuhack6",
+  "version": "0.1.0",
+  "description": "cuhack6",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node --optimize_for_size --max_old_space_size=2147 --gc_interval=100 server/index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js --watch ./ server/index.js",
+    "build": "zip -r deploy.zip ./ -x 'node_modules/*' -x '.env' -x '.git/*'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dskrenta/cuhack6.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dskrenta/cuhack6/issues"
+  },
+  "homepage": "https://github.com/dskrenta/cuhack6#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2"
+  }
+}
