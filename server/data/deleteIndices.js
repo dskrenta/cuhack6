@@ -1,6 +1,6 @@
 'use strict';
 
-const client = require('../src/utils/elasticsearchClient');
+const client = require('../utils/elasticsearchClient');
 const {
   INDICES: {
     recordsIndex

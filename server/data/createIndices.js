@@ -13,7 +13,7 @@ async function createIndicies() {
       index: recordsIndex,
       body: {
         mappings: {
-          record: {
+          '_doc': {
             properties: {
               userId: {type: 'keyword'},
               text: {type: 'text'},
