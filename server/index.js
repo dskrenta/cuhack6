@@ -20,14 +20,6 @@ const app = express();
 app.use(express.static(`${__dirname}/../web`));
 app.use(cors());
 
-// Elasticsearch configuration
-const esClient = elasticsearch.create({
-  host: ES_ENDPOINT,
-  log: process.env.NODE_ENV !== 'production' ? 'trace' : undefined,
-  region: ES_REGION,
-  credentials: new AWS.Credentials(process.env.elasticsearchAccessKeyId, process.env.elasticsearchSecretAccessKey)
-});
-
 app.get('/api', async (req, res) => {
   try {
     const query = decodeURIComponent(req.query.q);
