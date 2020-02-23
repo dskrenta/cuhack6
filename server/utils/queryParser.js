@@ -5,9 +5,9 @@ function queryParser(query) {
   let tags = [];
   let sort = null;
   let addContent = null;
-  const tagsRegex = query.match(/tags:(.*)/);
+  const tagsRegex = query.match(/tags:(.*)\s/);
   const sortRegex = query.match(/sort:(\w+)/);
-  const addRegex = query.match(/^add \"(.*)\"/);
+  const addRegex = query.match(/^add \"(.*?)\"/);
 
   if (tagsRegex) {
     tags = tagsRegex[1].split(',').map(str => str.trim());
