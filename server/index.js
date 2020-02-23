@@ -23,7 +23,7 @@ app.use(cors());
 
 app.get('/api', async (req, res) => {
   try {
-    const query = decodeURIComponent(req.query.q);
+    const query = decodeURIComponent(req.query.q).toLowerCase();
     const parsedQuery = queryParser(query);
 
     let results = [];
@@ -61,7 +61,7 @@ app.get('/api', async (req, res) => {
 
       // Check package triggers and execute packages
       for (const mod of modules) {
-        if (mod.mod.trigger(query)) {
+        if (await mod.mod.trigger(query)) {
           const modResult = await mod.mod[mod.key](query);
           if (modResult) results.push(modResult);
         }
