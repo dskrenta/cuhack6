@@ -6,8 +6,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express');
 const cors = require('cors');
-const AWS = require('aws-sdk');
-const elasticsearch = require('aws-elasticsearch-client');
 
 const esClient = require('./utils/elasticsearchClient');
 const queryParser = require('./utils/queryParser');

@@ -1,11 +1,16 @@
 'use strict';
 
 const client = require('../utils/elasticsearchClient');
+const {
+  INDICES: {
+    recordsIndex
+  }
+} = require('../utils/constants');
 
 async function createIndicies() {
   try {
     await client.indices.create({
-      index: 'cuhack6-records',
+      index: recordsIndex,
       body: {
         mappings: {
           record: {
