@@ -4,24 +4,40 @@ const express = require('express');
 const cors = require('cors');
 
 const queryParser = require('./utils/queryParser');
+const modules = require('./modules');
 
 const PORT = process.env.PORT || 3000;
-const app = express();
 
+// Express configuration
+const app = express();
 app.use(express.static(`${__dirname}/../web`));
 app.use(cors());
 
 app.get('/api', async (req, res) => {
   try {
-    const query = req.query.q;
+    const query = decodeURIComponent(req.query.q);
     const parsedQuery = queryParser(query);
+
+    let results = [];
 
     if (parsedQuery.type === 'add') {
       console.log('add command', parsedQuery);
     }
     else {
       console.log('search', parsedQuery);
+
+      for (const mod of modules) {
+        if (mod.mod.trigger(query)) {
+          const modResult = await mod.mod[mod.key](query);
+          if (modResult) results.push(modResult);
+        }
+      }
+
+      // check triggers for modules
+      // perform es search
     }
+
+    console.log(results);
 
     const sampleData = [
       {

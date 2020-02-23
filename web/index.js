@@ -53,7 +53,7 @@
 
   async function search(query) {
     try {
-      const searchRes = await fetch(`${API_URL}?q=${query}`);
+      const searchRes = await fetch(`${API_URL}?q=${encodeURIComponent(query)}`);
       const results = await searchRes.json();
       return results;
     }
