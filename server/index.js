@@ -3,6 +3,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const queryParser = require('./utils/queryParser');
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 
@@ -12,6 +14,14 @@ app.use(cors());
 app.get('/api', async (req, res) => {
   try {
     const query = req.query.q;
+    const parsedQuery = queryParser(query);
+
+    if (parsedQuery.type === 'add') {
+      console.log('add command', parsedQuery);
+    }
+    else {
+      console.log('search', parsedQuery);
+    }
 
     const sampleData = [
       {
