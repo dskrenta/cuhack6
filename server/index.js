@@ -45,7 +45,14 @@ app.get('/api', async (req, res) => {
         record.urls = urlPreviews;
       }
 
-      await addRecord({ esClient, ...record });
+      const addRecordRes = await addRecord({ esClient, ...record });
+
+      if (addRecordRes) {
+        results.push({ type: 'message', text: 'Uploaded record' });
+      }
+      else {
+        results.push({ type: 'message', text: 'Failed to upload record' });
+      }
     }
 
     // Search

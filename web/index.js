@@ -51,6 +51,13 @@
             </div>
           `;
         }
+        else if (result.type === 'message') {
+          htmlStr += `
+            <div class="result">
+              <h4>${result.text}</h4>
+            </div>
+          `;
+        }
       }
 
       resultsContainer.innerHTML = htmlStr;
