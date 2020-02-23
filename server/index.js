@@ -9,7 +9,7 @@ const cors = require('cors');
 const AWS = require('aws-sdk');
 const elasticsearch = require('aws-elasticsearch-client');
 
-const { ES_ENDPOINT, ES_REGION } = require('./utils/constants');
+const esClient = require('./utils/elasticsearchClient');
 const queryParser = require('./utils/queryParser');
 const modules = require('./modules');
 
