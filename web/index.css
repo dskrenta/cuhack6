@@ -57,6 +57,12 @@ body {
   padding-left: 4px;
   padding-bottom: 4px;
 }
+.searchIcon {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
 #results {
   width: 95%;
   max-width: 660px;
@@ -77,8 +83,12 @@ body {
 .title {
   margin: 12px 0 6px;
   font-weight: normal;
-  color: var(--white1);
+  color: white;
   font-size: 18px;
+}
+.snippet {
+  color: var(--white2);
+  font-size: 16px;
 }
 .url {
   color: var(--green);
@@ -88,6 +98,9 @@ body {
 .text {
   margin: 6px 0;
   font-size: 18px;
+}
+.message {
+  color: var(--white3);
 }
 .result > iframe {
   width: calc(100% + 36px);
